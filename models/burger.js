@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
           console.log("error inserting burger");
         })
       },
-      updateOne: function(query, updatedBurger) {
+      updateOne: function(models, query, updatedBurger) {
         return Promise.resolve(this.update(updatedBurger, {
           where: query
         }))

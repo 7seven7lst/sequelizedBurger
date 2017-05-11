@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Burger from './Burger';
 
 const BurgerList = ({ burgers, onBurgerClick }) => (
-  <ul>
+  <div>
     {burgers.map(burger =>
       <Burger
         key={burger.id}
@@ -10,7 +10,7 @@ const BurgerList = ({ burgers, onBurgerClick }) => (
         onClick={() => onBurgerClick(burger.id)}
       />
     )}
-  </ul>
+  </div>
 );
 
 BurgerList.propTypes = {

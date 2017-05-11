@@ -1,14 +1,19 @@
 import React, { PropTypes } from 'react';
+import Card from 'grommet/components/Card';
 
 const Burger = ({ onClick, devoured, burger_name, customer }) => (
-  <li
+
+  <Card
+    thumbnail='/assets/images/hero.png'
+    heading={burger_name}
+    description= {burger_name + " ordered By : " + customer.customer_name}
     onClick={onClick}
     style={{
       textDecoration: devoured ? 'line-through' : 'none',
     }}
   >
-    {burger_name}, order By: {customer.customer_name}
-  </li>
+    
+  </Card>
 );
 
 Burger.propTypes = {

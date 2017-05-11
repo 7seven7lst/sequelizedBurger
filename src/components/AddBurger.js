@@ -1,5 +1,15 @@
-
+import 'grommet/scss/vanilla/index';
 import React, { Component, PropTypes } from 'react';
+import TextInput from 'grommet/components/TextInput';
+import Columns from 'grommet/components/Columns';
+import Box from 'grommet/components/Box';
+import Form from 'grommet/components/Form';
+import FormFields from 'grommet/components/FormFields';
+import Footer from 'grommet/components/Footer';
+import Button from 'grommet/components/Button';
+import Select from 'grommet/components/Select';
+import Label from 'grommet/components/Label';
+import Deploy from 'grommet/components/icons/base/Deploy';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -31,21 +41,52 @@ class AddBurger extends Component {
     let input, selection;
     let customerSelector=[];
     _.each(mycustomers, (customer,key)=>{
-      console.log("customer is >>>", customer);
       customerSelector.push({value: customer.id, label: customer.customer_name});
     })
     return (
       <div>
-        <form
-          onSubmit={(event)=>{event.preventDefault(); handleFormSubmit(event, input.value, selection.value); input.value =""; selection.value="";}}
-        >
-          <label>Burger Name<input ref={node => { input = node; }} /></label>
-          <label>Customer Id<input ref={node=> {selection = node;}} /></label>
-        
-          <button type="submit">
-            Add Burger
-          </button>
-        </form>
+        <Columns>
+          <Box align='center'
+            pad='medium'
+            margin='small'
+            colorIndex='light-2'>
+            <Form
+              onSubmit={(event)=>{event.preventDefault(); handleFormSubmit(event, input, selection); }}
+            >
+              <FormFields>
+                <Box align='center'
+                  pad='medium'
+                  margin='small'
+                  colorIndex='light-2'>
+                  <Label>
+                    Burger Name
+                  </Label>
+                  <TextInput 
+                    onDOMChange={e=>{input = e.target.value}} 
+                    ref={node => { input = node; }} 
+                  />
+
+                
+                  <Label>
+                    Customer Name
+                  </Label>
+                  <Select 
+                    options={customerSelector}
+                    onChange={(value)=>{console.log("!!!!!!!", value); selection=value.value.value}} 
+                  />
+
+                </Box>
+              </FormFields>
+              <Footer>
+                <Button icon={<Deploy />}
+                  label='Add Burger'
+                  type='submit'
+                  primary={true}
+                 />
+              </Footer>
+            </Form>
+          </Box>
+        </Columns>
       </div>
     );
   }
@@ -67,6 +108,8 @@ const mapStateToProps = (state, {params}) => {
 const mapDispatchToProps = dispatch => {
   return {
     handleFormSubmit: (event, input, selection) => {
+      console.log("input is>>>>", input);
+      console.log("selection is>>>", selection);
       let newBurger = _.assign({}, 
         {
           burger_name: input,
